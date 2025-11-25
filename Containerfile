@@ -14,7 +14,7 @@ ENV ARGOCD_VERSION=3.2.0 \
     VAULT_VERSION=1.21.1 \
     KUSTOMIZE_VERSION=5.8.0
 
-ENV PACKAGES="zip iputils bind-utils net-tools nodejs npm nodejs-nodemon python3 python3-pip httpd-tools"
+ENV PACKAGES="zip iputils bind-utils net-tools nodejs npm nodejs-nodemon python3 python3-pip httpd-tools gh"
 
 RUN dnf -y install \
     ${PACKAGES} && \

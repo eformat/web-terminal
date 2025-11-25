@@ -1,6 +1,8 @@
 # web-terminal
 
-For use in OpenShift web terminal
+For use in OpenShift web terminal.
+
+🤖 Try out the [Cline](CLINE.md) example ! 🤖
 
 ```bash
 oc apply -f - <<EOF
