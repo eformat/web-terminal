@@ -1,9 +1,11 @@
 # Image URL to use all building/pushing image targets
 REPOSITORY ?= $(REGISTRY)/eformat/web-terminal
 REGISTRY ?= quay.io
+RHEL_RHSM_USERNAME = $(RHEL_RHSM_USERNAME)
+RHEL_RHSM_PASSWORD = $(RHEL_RHSM_PASSWORD)
 
 IMG := $(REPOSITORY):latest
-VERSION := 1.0.0
+VERSION := 2.0.0
 
 # podman Login
 podman-login:
@@ -21,6 +23,7 @@ podman-push-release: podman-tag-release
 
 # Build the podman image
 podman-build:
+	podman build --build-arg RHEL_RHSM_USERNAME=$(RHEL_RHSM_USERNAME) --build-arg RHEL_RHSM_PASSWORD=$(RHEL_RHSM_PASSWORD) --platform linux/amd64 . -t quay.io/eformat/web-terminal:latest -t quay.io/eformat/web-terminal:latest-x86_64 -f Containerfile
 	podman build --platform linux/amd64 . -t ${IMG} -t ${IMG}-x86_64 -f Containerfile
 
 # Push the podman image

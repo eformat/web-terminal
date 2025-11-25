@@ -1,24 +1,27 @@
-FROM quay.io/devfile/base-developer-image:ubi9-latest
+FROM quay.io/devfile/base-developer-image:ubi10-latest
 # registry.redhat.io/web-terminal/web-terminal-tooling-rhel9@sha256:0b133afa920b5180a3c3abe3dd5c73a9cfc252a71346978f94adcb659d683404
 
 USER root
 
-ENV ARGOCD_VERSION=3.1.1 \
-    YQ_VERSION=4.23.1 \
-    HELM_VERSION=3.18.6 \
-    OC_VERSION=4.19.7 \
+ARG RHEL_RHSM_USERNAME
+ARG RHEL_RHSM_PASSWORD
+
+ENV ARGOCD_VERSION=3.2.0 \
+    YQ_VERSION=4.49.1 \
+    HELM_VERSION=4.0.1 \
+    OC_VERSION=4.20.3 \
     JQ_VERSION=1.8.1 \
-    VAULT_VERSION=1.20.2 \
-    KUSTOMIZE_VERSION=5.7.1
+    VAULT_VERSION=1.21.1 \
+    KUSTOMIZE_VERSION=5.8.0
 
 ENV PACKAGES="zip iputils bind-utils net-tools nodejs npm nodejs-nodemon python3 python3-pip httpd-tools"
 
 RUN dnf -y install \
     ${PACKAGES} && \
-    # not in ubi and need libc match
-    dnf -y install https://kojipkgs.fedoraproject.org//packages/gettext/0.21/7.fc35/x86_64/gettext-0.21-7.fc35.x86_64.rpm https://kojipkgs.fedoraproject.org//packages/gettext/0.21/7.fc35/x86_64/gettext-libs-0.21-7.fc35.x86_64.rpm && \
     dnf -y -q clean all && rm -rf /var/cache/yum && \
-    ln -s /usr/bin/node /usr/bin/nodejs
+    ln -s /usr/bin/node /usr/bin/nodejs && \
+    ln -s /usr/bin/python3 /usr/bin/python && \
+    echo "🐍🐍🐍🐍🐍"
 
 # python global deps
 RUN pip install --no-cache-dir ansible && \
@@ -66,6 +69,17 @@ RUN curl -skL -o /tmp/kustomize.tar.gz https://github.com/kubernetes-sigs/kustom
     rm -rf /tmp/linux-amd64 && \
     rm -rf /tmp/kustomize.tar.gz && \
     echo "🐾🐾🐾🐾🐾"
+
+# google chrome for headless mode
+COPY google-chrome.repo /etc/yum.repos.d/google-chrome.repo
+
+RUN subscription-manager register --username "${RHEL_RHSM_USERNAME}" --password "${RHEL_RHSM_PASSWORD}" && \
+    subscription-manager repos --enable codeready-builder-for-rhel-10-$(arch)-rpms && \
+    dnf install -y google-chrome-stable && \
+    subscription-manager unregister && \
+    dnf -y clean all && \
+    rm -rf /var/cache/dnf && \
+    echo "🐕🐕🐕🐕🐕"
 
 USER user
 WORKDIR /home/user
