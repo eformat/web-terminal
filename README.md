@@ -4,6 +4,8 @@ For use in OpenShift web terminal.
 
 🤖 Try out the [Cline](CLINE.md) example ! 🤖
 
+🤖 Try out the [Opencode](OPENCODE.md) example ! 🤖
+
 ```bash
 oc apply -f - <<EOF
 ---
