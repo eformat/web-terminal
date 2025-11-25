@@ -25,7 +25,7 @@
 6. Put cline on path.
 
     ```bash
-    echo 'export PATH=$HOME/node_modules/cline/bin:$PATH' > ~/.bashrc
+    echo 'export PATH=$HOME/node_modules/cline/bin:$PATH' >> ~/.bashrc
     bash
     ```
 
