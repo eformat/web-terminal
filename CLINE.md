@@ -42,6 +42,8 @@
     cline auth -p openai-compatible -k $TOKEN -m $MODEL_ID -b $HOST/v1
     ```
 
+    ![images/web-terminal-3.png](images/web-terminal-3.png)
+
 9. Test a yolo prompt.
 
     ```bash
