@@ -1,6 +1,6 @@
 # web-terminal
 
-For use in OpenShift web terminal.
+Tooling Image for use in the OpenShift web terminal.
 
 🤖 Try out the [Cline](CLINE.md) example ! 🤖
 
