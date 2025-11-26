@@ -36,4 +36,4 @@ function help_message() {
 
 alias help=help_message
 
-echo 'Welcome to the OpenShift Web Terminal Custom Image: https://github.com/rhpds/etx-llmaas-gitops. Type "help" for a list of installed CLI tools.'
+echo 'Welcome to the OpenShift Web Terminal Custom Image: https://github.com/eformat/web-terminal. Type "help" for a list of installed CLI tools.'
